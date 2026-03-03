@@ -10,7 +10,7 @@ import CaseStudiesScroll from '@/components/CaseStudiesScroll'
 import { TestimonialsSection } from '@/components/blocks/testimonials-with-marquee'
 import CtaSection from '@/components/CtaSection'
 import Footer from '@/components/Footer'
-import ImageSphereSection from './ImageSphereSection'
+import BubbleSphereShowcase from '@/components/BubbleSphereShowcase'
 import DataSphereShowcase from '@/components/DataSphereShowcase'
 
 export default function Home() {
@@ -34,8 +34,17 @@ export default function Home() {
         <MetricsCounter metrics={data.metrics} metricsSection={data.aboutUs || undefined} />
       )}
 
+      {data?.services && data.services.length > 0 && (
+        <CoreServicesSection services={data.services} />
+      )}
+
+      {data?.products && data.products.length > 0 && (
+        <ProductCarousel products={data.products} />
+      )}
+
+      {/* Admin-managed 3D image bubble sphere — performant, no scroll lock */}
       {data?.sphereShowcase && (
-        <ImageSphereSection 
+        <BubbleSphereShowcase
           data={{
             sectionTitle: data.sphereShowcase.sectionTitle || '',
             sectionDescription: data.sphereShowcase.sectionDescription || '',
@@ -46,14 +55,6 @@ export default function Home() {
             items: data.sphereShowcase.items || []
           }}
         />
-      )}
-
-      {data?.services && data.services.length > 0 && (
-        <CoreServicesSection services={data.services} />
-      )}
-
-      {data?.products && data.products.length > 0 && (
-        <ProductCarousel products={data.products} />
       )}
 
       {/* Interactive 3D Data Sphere — services, solutions, industries, products, etc. */}

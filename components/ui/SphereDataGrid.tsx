@@ -451,7 +451,17 @@ const SphereDataGrid: React.FC<SphereDataGridProps> = ({
               )}
             </div>
           ) : (
-            <div className="relative w-full h-full rounded-full overflow-hidden shadow-lg border-2 border-white/20">
+            <div
+              className="relative w-full h-full rounded-full overflow-hidden group/bubble"
+              style={{
+                boxShadow: isHov
+                  ? '0 0 24px rgba(59,130,246,0.5), 0 0 48px rgba(99,102,241,0.25), 0 4px 16px rgba(0,0,0,0.4)'
+                  : '0 0 12px rgba(59,130,246,0.15), 0 4px 12px rgba(0,0,0,0.3)',
+                border: '2.5px solid rgba(255,255,255,0.25)',
+                transition: 'box-shadow 0.3s ease, border-color 0.3s ease',
+                borderColor: isHov ? 'rgba(147,197,253,0.6)' : 'rgba(255,255,255,0.25)',
+              }}
+            >
               <img
                 src={node.src}
                 alt={node.alt}
@@ -459,6 +469,24 @@ const SphereDataGrid: React.FC<SphereDataGridProps> = ({
                 draggable={false}
                 loading={index < 3 ? 'eager' : 'lazy'}
               />
+              {/* Bubble shimmer overlay */}
+              <div
+                className="absolute inset-0 rounded-full pointer-events-none"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(255,255,255,0.08) 100%)',
+                }}
+              />
+              {/* Hover glow ring */}
+              {isHov && (
+                <div
+                  className="absolute -inset-1 rounded-full pointer-events-none"
+                  style={{
+                    background: 'transparent',
+                    boxShadow: '0 0 20px rgba(59,130,246,0.4)',
+                    animation: 'sdg-pulseRing 1.5s ease-in-out infinite',
+                  }}
+                />
+              )}
             </div>
           )}
         </div>
@@ -597,6 +625,7 @@ const SphereDataGrid: React.FC<SphereDataGridProps> = ({
       <style>{`
         @keyframes sdg-fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes sdg-scaleIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes sdg-pulseRing { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
       `}</style>
 
       <div
