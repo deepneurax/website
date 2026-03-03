@@ -41,7 +41,7 @@ export const servicesData = [
     icon: '🤖',
     order: 1,
     link: '/services/machine-learning',
-    image: null,
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80',
   },
   {
     id: 2,
@@ -52,7 +52,7 @@ export const servicesData = [
     icon: '📡',
     order: 2,
     link: '/services/data-analytics',
-    image: null,
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
   },
   {
     id: 3,
@@ -63,7 +63,7 @@ export const servicesData = [
     icon: '🧩',
     order: 3,
     link: '/services/cloud-infrastructure',
-    image: null,
+    image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80',
   },
   {
     id: 4,
@@ -74,7 +74,7 @@ export const servicesData = [
     icon: '📦',
     order: 4,
     link: '/services/ai-security',
-    image: null,
+    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f2?w=800&q=80',
   },
   {
     id: 5,
@@ -85,7 +85,7 @@ export const servicesData = [
     icon: '📈',
     order: 5,
     link: '/services/ai-consulting',
-    image: null,
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80',
   },
   {
     id: 6,
@@ -96,7 +96,7 @@ export const servicesData = [
     icon: '🏢',
     order: 6,
     link: '/services/nlp-solutions',
-    image: null,
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80',
   },
 ]
 
@@ -110,7 +110,7 @@ export const productsData = [
     icon: '🧪',
     order: 1,
     link: '/products/neurax-platform',
-    image: null,
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
   },
   {
     id: 2,
@@ -121,7 +121,7 @@ export const productsData = [
     icon: '🧠',
     order: 2,
     link: '/products/automl-suite',
-    image: null,
+    image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&q=80',
   },
   {
     id: 3,
@@ -132,7 +132,7 @@ export const productsData = [
     icon: '📊',
     order: 3,
     link: '/products/dataviz-pro',
-    image: null,
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
   },
   {
     id: 4,
@@ -143,7 +143,7 @@ export const productsData = [
     icon: '👥',
     order: 4,
     link: '/products/ai-payroll-hrms',
-    image: null,
+    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80',
   },
   {
     id: 5,
@@ -154,7 +154,7 @@ export const productsData = [
     icon: '📦',
     order: 5,
     link: '/products/custom-saas-modules',
-    image: null,
+    image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80',
   },
 ]
 
@@ -207,10 +207,10 @@ export const sphereShowcaseData = {
   contentHeading: 'Explore Our Vision',
   contentDescription: 'Discover a world where technology meets creativity.',
   items: [
-    { id: 1, title: 'Deep Learning', description: 'Neural networks that understand complex patterns', image: null, link: '#', order: 1 },
-    { id: 2, title: 'Computer Vision', description: 'AI that sees and understands the visual world', image: null, link: '#', order: 2 },
-    { id: 3, title: 'NLP', description: 'Natural language understanding at scale', image: null, link: '#', order: 3 },
-    { id: 4, title: 'Predictive Analytics', description: 'Forecasting the future with data', image: null, link: '#', order: 4 },
+    { id: 1, title: 'Deep Learning', description: 'Neural networks that understand complex patterns', image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&q=80', link: '#deep-learning', order: 1 },
+    { id: 2, title: 'Computer Vision', description: 'AI that sees and understands the visual world', image: 'https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=400&q=80', link: '#computer-vision', order: 2 },
+    { id: 3, title: 'NLP', description: 'Natural language understanding at scale', image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80', link: '#nlp', order: 3 },
+    { id: 4, title: 'Predictive Analytics', description: 'Forecasting the future with data', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80', link: '#analytics', order: 4 },
   ],
 }
 
@@ -219,7 +219,12 @@ export const featuresSectionData = {
   introSubheading: 'Built for the Future',
   sectionTitle: 'Cutting-Edge AI Features',
   sectionDescription: 'Experience the power of next-generation artificial intelligence',
-  images: [],
+  images: [
+    { url: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80', alt: 'AI neural network visualization' },
+    { url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80', alt: 'Data center infrastructure' },
+    { url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80', alt: 'Global technology network' },
+    { url: 'https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=600&q=80', alt: 'Computer vision technology' },
+  ],
 }
 
 export const caseStudiesSectionData = {
@@ -242,7 +247,7 @@ export const caseStudiesData = [
     ],
     isActive: true,
     order: 1,
-    backgroundImage: null,
+    backgroundImage: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80',
     metrics: [
       { label: 'Error Reduction', value: '83%' },
       { label: 'Stock Visibility', value: 'Real-time' },
@@ -263,7 +268,7 @@ export const caseStudiesData = [
     ],
     isActive: true,
     order: 2,
-    backgroundImage: null,
+    backgroundImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80',
     metrics: [
       { label: 'Downtime Reduction', value: '40%' },
       { label: 'Monitored Assets', value: '200+' },
@@ -284,7 +289,7 @@ export const caseStudiesData = [
     ],
     isActive: true,
     order: 3,
-    backgroundImage: null,
+    backgroundImage: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80',
     metrics: [
       { label: 'Process Acceleration', value: '2.3x' },
       { label: 'Legacy Modules Migrated', value: '30+' },
@@ -300,7 +305,7 @@ export const testimonialsData = [
     handle: '',
     role: 'Chief Executive Officer',
     text: 'DeepNeurax transformed our entire business ecosystem with an integrated AI and IoT platform. Remarkable experience.',
-    avatar: null,
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80',
     order: 1,
   },
   {
@@ -309,7 +314,7 @@ export const testimonialsData = [
     handle: '',
     role: 'Chief Executive Officer',
     text: 'Professional team, clear communication, and world-class software delivery.',
-    avatar: null,
+    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80',
     order: 2,
   },
 ]
@@ -338,7 +343,7 @@ The enterprises that embrace AI today will be the market leaders of tomorrow. Th
     publishedAt: '2025-12-15T10:00:00.000Z',
     author: 'Dr. James Wilson',
     tags: ['AI', 'Enterprise', 'Technology'],
-    coverImage: null,
+    coverImage: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80',
   },
   {
     id: 2,
@@ -365,7 +370,7 @@ Implementing machine learning successfully requires more than just algorithms—
     publishedAt: '2025-11-28T10:00:00.000Z',
     author: 'Sarah Chen',
     tags: ['Machine Learning', 'Best Practices', 'Data Science'],
-    coverImage: null,
+    coverImage: 'https://images.unsplash.com/photo-1555255707-c07966088b7b?w=800&q=80',
   },
   {
     id: 3,
@@ -392,7 +397,7 @@ As AI becomes more prevalent, ensuring these systems are fair, transparent, and 
     publishedAt: '2025-11-10T10:00:00.000Z',
     author: 'Maria Rodriguez',
     tags: ['Ethics', 'AI', 'Responsible AI'],
-    coverImage: null,
+    coverImage: 'https://images.unsplash.com/photo-1531746790095-e5577e0e3ede?w=800&q=80',
   },
   {
     id: 4,
@@ -419,7 +424,7 @@ Running AI workloads efficiently requires specialized infrastructure that can ha
     publishedAt: '2025-10-22T10:00:00.000Z',
     author: 'Alex Thompson',
     tags: ['Cloud', 'Infrastructure', 'MLOps'],
-    coverImage: null,
+    coverImage: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80',
   },
 ]
 
