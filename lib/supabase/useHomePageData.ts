@@ -3,12 +3,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react'
 import { createClient } from './client'
-import type { HomePageData } from './types'
+import type { HomePageData, ImageAsset } from './types'
 import {
   heroData, servicesData, productsData, metricsData,
   aboutUsData, sphereShowcaseData, caseStudiesSectionData,
   caseStudiesData, testimonialsData, ctaData, footerData,
 } from '@/lib/data/index'
+
+// Helper to wrap a plain URL string into an ImageAsset object
+const toImageAsset = (url: string | null | undefined): ImageAsset | undefined =>
+  url ? { asset: { url } } : undefined
+const toImageAssetOrNull = (url: string | null | undefined): ImageAsset | null =>
+  url ? { asset: { url } } : null
 
 // Build the static fallback (same as the old build-time data)
 function getStaticFallback(): HomePageData {
@@ -21,17 +27,17 @@ function getStaticFallback(): HomePageData {
       primaryButtonLink: heroData.ctaLink,
       secondaryButtonText: heroData.secondaryCtaText,
       secondaryButtonLink: heroData.secondaryCtaLink,
-      backgroundImage: heroData.backgroundImage || undefined,
+      backgroundImage: toImageAsset(heroData.backgroundImage),
       backgroundVideos: heroData.backgroundVideos || [],
       taglines: heroData.taglines,
     },
     services: servicesData.map((s) => ({
       id: s.id.toString(), title: s.title, slug: s.slug, description: s.description,
-      icon: s.icon, order: s.order, link: s.link, image: s.image || undefined,
+      icon: s.icon, order: s.order, link: s.link, image: toImageAsset(s.image),
     })),
     products: productsData.map((p) => ({
       id: p.id.toString(), name: p.name, slug: p.slug, description: p.description,
-      icon: p.icon, order: p.order, link: p.link, image: p.image || undefined,
+      icon: p.icon, order: p.order, link: p.link, image: toImageAsset(p.image),
     })),
     sphereShowcase: {
       sectionTitle: sphereShowcaseData.sectionTitle,
@@ -64,7 +70,7 @@ function getStaticFallback(): HomePageData {
     caseStudies: caseStudiesData.filter(c => c.isActive).map((c) => ({
       id: c.id.toString(), title: c.title, slug: c.slug, description: c.description,
       bulletPoints: c.bulletPoints, isActive: c.isActive, order: c.order,
-      backgroundImage: c.backgroundImage || null, metrics: c.metrics,
+      backgroundImage: toImageAssetOrNull(c.backgroundImage), metrics: c.metrics,
     })),
     testimonials: testimonialsData.map((t) => ({
       id: t.id.toString(), author: t.author, handle: t.handle, role: t.role,
