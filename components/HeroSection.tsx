@@ -66,19 +66,23 @@ export default function HeroSection({ data }: { data: HeroData }) {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 0.3 })
       
-      tl.from('.hero-title',
-        { y: 80, duration: 1.2, ease: 'power3.out' }
+      tl.fromTo('.hero-title',
+        { y: 80, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out' }
       )
-      .from('.hero-tagline-container',
-        { y: 40, duration: 1, ease: 'power3.out' },
+      .fromTo('.hero-tagline-container',
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
         '-=0.8'
       )
-      .from('.hero-buttons',
-        { y: 40, duration: 1, ease: 'power3.out' },
+      .fromTo('.hero-buttons',
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
         '-=0.6'
       )
-      .from('.hero-stats > *',
-        { y: 30, duration: 0.8, stagger: 0.1, ease: 'power3.out' },
+      .fromTo('.hero-stats > *',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out' },
         '-=0.5'
       )
     }, heroRef)
@@ -201,7 +205,7 @@ export default function HeroSection({ data }: { data: HeroData }) {
       >
         <div className="max-w-2xl mb-20">
           {/* Main Title - Professional Typography */}
-          <div className="hero-title mb-4">
+          <div className="hero-title mb-4 opacity-0">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3 tracking-tight text-white" style={{ fontFamily: "'Geom', sans-serif", fontWeight: 700, letterSpacing: '-0.02em' }}>
               {data.title}
             </h1>
@@ -209,7 +213,7 @@ export default function HeroSection({ data }: { data: HeroData }) {
 
           {/* Tagline & Description Container with Rotation */}
           <div 
-            className="hero-tagline-container min-h-[160px]"
+            className="hero-tagline-container min-h-[160px] opacity-0"
             onMouseEnter={() => setIsHoveringTagline(true)}
             onMouseLeave={() => setIsHoveringTagline(false)}
           >
@@ -245,7 +249,7 @@ export default function HeroSection({ data }: { data: HeroData }) {
           </div>
 
           {/* CTA Buttons - Enhanced with unified button system */}
-          <div className="hero-buttons flex flex-col sm:flex-row gap-4 pt-2">
+          <div className="hero-buttons flex flex-col sm:flex-row gap-4 pt-2 opacity-0">
             {/* Primary Button */}
             <Link href={data.primaryButtonLink || '/contact'} className="btn-primary">
               <span>{data.primaryButtonText || 'Get Started'}</span>
@@ -264,7 +268,7 @@ export default function HeroSection({ data }: { data: HeroData }) {
           </div>
 
           {/* Stats or Features Row - Optional */}
-          <div className="hero-stats mt-12 flex flex-wrap gap-8 md:gap-12 max-w-xl">
+          <div className="hero-stats mt-12 flex flex-wrap gap-8 md:gap-12 max-w-xl opacity-0">
             {[
               { number: '10+', label: 'Services' },
               { number: '3+', label: 'Products' },

@@ -69,12 +69,12 @@ export function useLayoutData() {
         cta: footerCta,
       } : null
 
-      const services = (servicesRes.data || []).map((s: any) => ({
+      const services = servicesRes.data?.length ? servicesRes.data.map((s: any) => ({
         id: s.id, title: s.title, slug: s.slug,
         description: s.description, icon: s.icon, order: s.order,
         link: s.link || `/services/${s.slug}`,
         image: s.image_url ? { asset: { url: s.image_url } } : undefined,
-      }))
+      })) : getStaticLayout().services
 
       setLayout({ footer: footer || getStaticLayout().footer, services })
       } catch (err) {

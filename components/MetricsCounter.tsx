@@ -84,42 +84,47 @@ export default function MetricsCounter({ metrics, metricsSection }: { metrics: M
     const ctx = gsap.context(() => {
       // Who We Are animation
       if (document.querySelector('.who-we-are-anim')) {
-        gsap.from('.who-we-are-anim', {
-          y: 40, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: '.who-we-are-anim', start: 'top 85%' }
-        })
+        gsap.fromTo('.who-we-are-anim',
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: '.who-we-are-anim', start: 'top 85%' } }
+        )
       }
 
       // Core Values animation
       if (document.querySelector('.core-values-anim')) {
-        gsap.from('.core-values-anim', {
-          y: 40, duration: 1, delay: 0.2, ease: 'power3.out',
-          scrollTrigger: { trigger: '.core-values-anim', start: 'top 85%' }
-        })
+        gsap.fromTo('.core-values-anim',
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, delay: 0.2, ease: 'power3.out',
+            scrollTrigger: { trigger: '.core-values-anim', start: 'top 85%' } }
+        )
       }
 
       // Core Value Cards stagger
       if (document.querySelector('.core-value-card-anim')) {
-        gsap.from('.core-value-card-anim', {
-          y: 30, duration: 0.7, stagger: 0.15, ease: 'power3.out',
-          scrollTrigger: { trigger: '.core-values-anim', start: 'top 85%' }
-        })
+        gsap.fromTo('.core-value-card-anim',
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: '.core-values-anim', start: 'top 85%' } }
+        )
       }
 
       // Metrics Header animation
       if (document.querySelector('.metrics-header')) {
-        gsap.from('.metrics-header', {
-          y: 40, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: '.metrics-header', start: 'top 85%' }
-        })
+        gsap.fromTo('.metrics-header',
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: '.metrics-header', start: 'top 85%' } }
+        )
       }
 
       // Cards stagger animation
       if (document.querySelector('.metric-card')) {
-        gsap.from('.metric-card', {
-          y: 50, scale: 0.95, duration: 0.8, stagger: 0.12, ease: 'power3.out',
-          scrollTrigger: { trigger: '.metrics-grid', start: 'top 80%' }
-        })
+        gsap.fromTo('.metric-card',
+          { y: 50, scale: 0.95, opacity: 0 },
+          { y: 0, scale: 1, opacity: 1, duration: 0.8, stagger: 0.12, ease: 'power3.out',
+            scrollTrigger: { trigger: '.metrics-grid', start: 'top 80%' } }
+        )
       }
     }, sectionRef)
 
@@ -219,7 +224,7 @@ export default function MetricsCounter({ metrics, metricsSection }: { metrics: M
           <div className="flex-1 flex flex-col gap-10">
             {/* Who We Are Text */}
             {metricsSection && (
-              <div className="who-we-are-anim">
+              <div className="who-we-are-anim opacity-0">
                 <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight leading-tight" style={{ fontFamily: "'Geom', sans-serif", fontWeight: 800 }}>
                   {metricsSection.whoWeAreHeading}
                 </h2>
@@ -230,7 +235,7 @@ export default function MetricsCounter({ metrics, metricsSection }: { metrics: M
             )}
 
             {/* Metrics Header */}
-            <div className="metrics-header">
+            <div className="metrics-header opacity-0">
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight" style={{ fontFamily: "'Geom', sans-serif", fontWeight: 700 }}>
                 Our Impact in Numbers
               </h3>
@@ -302,7 +307,7 @@ export default function MetricsCounter({ metrics, metricsSection }: { metrics: M
 
           {/* RIGHT COLUMN: Core Values (Enhanced) */}
           {metricsSection && (
-            <div className="flex-1 w-full core-values-anim lg:pt-8">
+            <div className="flex-1 w-full core-values-anim opacity-0 lg:pt-8">
               <div className="relative">
                 {/* Decorative title background */}
                 <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-blue-400/0 via-blue-400/50 to-blue-400/0 hidden lg:block"></div>

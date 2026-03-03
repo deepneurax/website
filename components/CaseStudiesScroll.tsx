@@ -205,7 +205,7 @@ export default function CaseStudiesScroll({
             {sectionData.title}
           </h2>
           
-          <div ref={descriptionRef} className="pointer-events-auto px-4 md:px-0">
+          <div ref={descriptionRef} className="pointer-events-auto px-4 md:px-0 md:opacity-0">
             <p className="text-slate-600 text-lg md:text-xl leading-relaxed text-center md:text-left">
               {sectionData.description}
             </p>
@@ -221,7 +221,7 @@ export default function CaseStudiesScroll({
           {normalized.map((study, index) => (
             <div 
               key={study.id} 
-              className="cs-card-stack relative md:absolute inset-0 flex items-center justify-center p-0 md:p-10 w-full"
+              className="cs-card-stack relative md:absolute inset-0 flex items-center justify-center p-0 md:p-10 w-full md:opacity-0"
             >
               <div className="w-full max-w-2xl bg-white border border-slate-200 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-xl">
                 {/* Image Section */}

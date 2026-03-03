@@ -33,19 +33,22 @@ export default function CtaSection({ data }: { data: CtaData }) {
       })
 
       if (document.querySelector('.cta-title')) {
-        tl.from('.cta-title',
-          { y: 40, duration: 1, ease: 'power3.out' }
+        tl.fromTo('.cta-title',
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
         )
       }
       if (document.querySelector('.cta-subtitle')) {
-        tl.from('.cta-subtitle',
-          { y: 30, duration: 0.8, ease: 'power3.out' },
+        tl.fromTo('.cta-subtitle',
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
           '-=0.6'
         )
       }
       if (document.querySelector('.cta-button')) {
-        tl.from('.cta-button',
-          { y: 20, scale: 0.95, duration: 0.8, ease: 'back.out(1.7)' },
+        tl.fromTo('.cta-button',
+          { y: 20, scale: 0.95, opacity: 0 },
+          { y: 0, scale: 1, opacity: 1, duration: 0.8, ease: 'back.out(1.7)' },
           '-=0.4'
         )
       }
@@ -62,17 +65,17 @@ export default function CtaSection({ data }: { data: CtaData }) {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="cta-content max-w-4xl mx-auto text-center">
-          <h2 className="cta-title text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+          <h2 className="cta-title text-4xl md:text-6xl font-bold text-gray-900 mb-6 opacity-0">
             {data.title}
           </h2>
 
           {(data.subtitle || data.description) && (
-            <p className="cta-subtitle text-xl text-gray-700 mb-10 max-w-2xl mx-auto leading-relaxed">
+            <p className="cta-subtitle text-xl text-gray-700 mb-10 max-w-2xl mx-auto leading-relaxed opacity-0">
               {data.subtitle || data.description}
             </p>
           )}
 
-          <Link href={data.buttonLink} className="cta-button btn-primary inline-flex items-center gap-2 text-lg px-12 py-5">
+          <Link href={data.buttonLink} className="cta-button btn-primary inline-flex items-center gap-2 text-lg px-12 py-5 opacity-0">
             {data.buttonText}
             <ArrowRight className="w-5 h-5" />
           </Link>

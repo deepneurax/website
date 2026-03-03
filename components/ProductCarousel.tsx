@@ -145,22 +145,25 @@ export default function ProductCarousel({ products }: { products: Product[] }) {
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (document.querySelector('.products-header')) {
-        gsap.from('.products-header', {
-          y: 40, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: '.products-header', start: 'top 85%' },
-        })
+        gsap.fromTo('.products-header',
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: '.products-header', start: 'top 85%' } },
+        )
       }
       if (document.querySelector('.products-carousel')) {
-        gsap.from('.products-carousel', {
-          y: 50, scale: 0.97, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: '.products-carousel', start: 'top 80%' },
-        })
+        gsap.fromTo('.products-carousel',
+          { y: 50, scale: 0.97, opacity: 0 },
+          { y: 0, scale: 1, opacity: 1, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: '.products-carousel', start: 'top 80%' } },
+        )
       }
       if (document.querySelector('.products-nav')) {
-        gsap.from('.products-nav', {
-          y: 30, duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: '.products-nav', start: 'top 95%' },
-        })
+        gsap.fromTo('.products-nav',
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+            scrollTrigger: { trigger: '.products-nav', start: 'top 95%' } },
+        )
       }
     }, sectionRef)
     return () => ctx.revert()
@@ -233,7 +236,7 @@ export default function ProductCarousel({ products }: { products: Product[] }) {
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="products-header text-center mb-24">
+        <div className="products-header text-center mb-24 opacity-0">
           <h2
             className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight"
             style={{ fontFamily: "'Geom', sans-serif", fontWeight: 900 }}
@@ -247,7 +250,7 @@ export default function ProductCarousel({ products }: { products: Product[] }) {
         </div>
 
         {/* 3D Horizontal Carousel */}
-        <div className="products-carousel relative h-[600px] flex items-center justify-center" style={{ perspective: '2000px' }}>
+        <div className="products-carousel relative h-[600px] flex items-center justify-center opacity-0" style={{ perspective: '2000px' }}>
           <div className="relative w-full h-full flex items-center justify-center" style={{ transformStyle: 'preserve-3d' }}>
             {products.map((product, index) => {
               const pos = positions[index]
@@ -278,7 +281,7 @@ export default function ProductCarousel({ products }: { products: Product[] }) {
         </div>
 
         {/* Navigation */}
-        <div className="products-nav flex justify-center items-center gap-8 mt-20 relative z-10">
+        <div className="products-nav flex justify-center items-center gap-8 mt-20 relative z-10 opacity-0">
           <button
             onClick={() => setActiveIndex((prev) => (prev - 1 + products.length) % products.length)}
             className="w-14 h-14 flex items-center justify-center rounded-2xl bg-slate-100 border border-slate-200 hover:border-blue-400 hover:bg-blue-50 transition-all group"

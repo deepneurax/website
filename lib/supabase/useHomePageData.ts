@@ -145,39 +145,39 @@ async function fetchLiveData(): Promise<HomePageData | null> {
     } : fallback.hero
 
     // Services
-    const services = servicesRes.data?.map((s: any) => ({
+    const services = servicesRes.data?.length ? servicesRes.data.map((s: any) => ({
       id: s.id, title: s.title, slug: s.slug, description: s.description,
       icon: s.icon, order: s.order, link: s.link || `/services/${s.slug}`,
       image: s.image_url ? { asset: { url: s.image_url } } : undefined,
-    })) || fallback.services
+    })) : fallback.services
 
     // Products
-    const products = productsRes.data?.map((p: any) => ({
+    const products = productsRes.data?.length ? productsRes.data.map((p: any) => ({
       id: p.id, name: p.name, slug: p.slug, description: p.description,
       icon: p.icon, order: p.order, link: p.link || `/products/${p.slug}`,
       image: p.image_url ? { asset: { url: p.image_url } } : undefined,
-    })) || fallback.products
+    })) : fallback.products
 
     // Metrics
-    const metrics = metricsRes.data?.map((m: any) => ({
+    const metrics = metricsRes.data?.length ? metricsRes.data.map((m: any) => ({
       id: m.id, label: m.label, value: m.value,
       suffix: m.suffix, icon: m.icon, order: m.order,
-    })) || fallback.metrics
+    })) : fallback.metrics
 
     // Case studies
-    const caseStudies = caseStudiesRes.data?.map((c: any) => ({
+    const caseStudies = caseStudiesRes.data?.length ? caseStudiesRes.data.map((c: any) => ({
       id: c.id, title: c.title, slug: c.slug, description: c.description,
       bulletPoints: c.bullet_points || [], isActive: c.is_active, order: c.order,
       backgroundImage: c.background_image_url ? { asset: { url: c.background_image_url } } : null,
       metrics: c.metrics || [],
-    })) || fallback.caseStudies
+    })) : fallback.caseStudies
 
     // Testimonials
-    const testimonials = testimonialsRes.data?.map((t: any) => ({
+    const testimonials = testimonialsRes.data?.length ? testimonialsRes.data.map((t: any) => ({
       id: t.id, author: t.author, handle: t.handle, role: t.role,
       text: t.text, avatar: t.avatar_url ? { asset: { url: t.avatar_url } } : null,
       order: t.order,
-    })) || fallback.testimonials
+    })) : fallback.testimonials
 
     // CTA
     const ctaRow = ctaRes.data
