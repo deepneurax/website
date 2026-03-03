@@ -26,8 +26,8 @@ export function TestimonialsSection({ title, description, testimonials, classNam
       )}
     >
       {/* White dot texture overlay */}
-      <div className="pointer-events-none absolute inset-0 z-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
-      <div className="pointer-events-none absolute inset-0 z-0" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 70%)' }} />
+      <div className="pointer-events-none absolute inset-0 z-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+      <div className="pointer-events-none absolute inset-0 z-0" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 70%)' }} />
 
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center sm:gap-12 px-4 relative z-10">
         <div className="flex flex-col items-center gap-4 sm:gap-6">

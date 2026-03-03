@@ -35,12 +35,12 @@ const CoreServicesSection: React.FC<CoreServicesSectionProps> = ({ services }) =
         <div 
           className="absolute inset-0 opacity-100"
           style={{ 
-            backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)`,
+            backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px)`,
             backgroundSize: `32px 32px`
           }}
         ></div>
         {/* Subtle center glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_0%,transparent_70%)]"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_0%,transparent_70%)]"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
