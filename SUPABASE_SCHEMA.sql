@@ -290,25 +290,26 @@ ALTER TABLE footer ENABLE ROW LEVEL SECURITY;
 ALTER TABLE site_settings ENABLE ROW LEVEL SECURITY;
 
 -- ============================================
--- CREATE POLICIES FOR PUBLIC READ ACCESS
+-- CREATE POLICIES FOR PUBLIC READ ACCESS (idempotent)
 -- ============================================
-CREATE POLICY "Allow public read access on hero" ON hero FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on services" ON services FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on products" ON products FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on metrics" ON metrics FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on about_us" ON about_us FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on core_values" ON core_values FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on sphere_showcase" ON sphere_showcase FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on sphere_showcase_items" ON sphere_showcase_items FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on features_section" ON features_section FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on features_section_images" ON features_section_images FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on case_studies_section" ON case_studies_section FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on case_studies" ON case_studies FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on testimonials" ON testimonials FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on blog_posts" ON blog_posts FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on cta" ON cta FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on footer" ON footer FOR SELECT USING (true);
-CREATE POLICY "Allow public read access on site_settings" ON site_settings FOR SELECT USING (true);
+DO $$ 
+DECLARE
+  t TEXT;
+BEGIN
+  FOREACH t IN ARRAY ARRAY[
+    'hero','services','products','metrics','about_us','core_values',
+    'sphere_showcase','sphere_showcase_items','features_section',
+    'features_section_images','case_studies_section','case_studies',
+    'testimonials','blog_posts','cta','footer','site_settings'
+  ]
+  LOOP
+    IF NOT EXISTS (
+      SELECT 1 FROM pg_policies WHERE policyname = 'Allow public read access on ' || t AND tablename = t
+    ) THEN
+      EXECUTE format('CREATE POLICY "Allow public read access on %s" ON %I FOR SELECT USING (true)', t, t);
+    END IF;
+  END LOOP;
+END $$;
 
 -- ============================================
 -- INSERT DEFAULT DATA
