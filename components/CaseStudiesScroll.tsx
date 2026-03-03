@@ -71,7 +71,7 @@ export default function CaseStudiesScroll({
       // Mobile: Simple Stacked Layout (No Pinning)
       gsap.set(titleRef.current, { position: 'relative', fontSize: '3rem', textAlign: 'center', width: '100%', left: 'auto', top: 'auto', xPercent: 0, yPercent: 0, marginBottom: '2rem' });
       gsap.set(descriptionRef.current, { position: 'relative', opacity: 1, y: 0, left: 'auto', top: 'auto', width: '100%', marginBottom: '3rem' });
-      gsap.set('.cs-card-stack', { position: 'relative', opacity: 1, x: 0, scale: 1, filter: 'blur(0px)', marginBottom: '2rem' });
+      gsap.set('.cs-card-stack', { position: 'relative', opacity: 1, x: 0, scale: 1, marginBottom: '2rem' });
       return; // Exit GSAP setup for mobile
     }
 
@@ -89,7 +89,8 @@ export default function CaseStudiesScroll({
         textAlign: 'center',
         width: '100vw',
         zIndex: 100,
-        opacity: 1
+        opacity: 1,
+        willChange: 'transform, font-size',
       })
 
       gsap.set(descriptionRef.current, {
@@ -99,15 +100,16 @@ export default function CaseStudiesScroll({
         left: '10%',
         top: '40%',
         width: '35vw',
-        zIndex: 90
+        zIndex: 90,
+        willChange: 'transform, opacity',
       })
 
       gsap.set(cards, {
         opacity: 0,
         x: 100,
         scale: 0.9,
-        filter: 'blur(10px)',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        willChange: 'transform, opacity',
       })
 
       // Master Timeline
@@ -116,10 +118,10 @@ export default function CaseStudiesScroll({
           trigger: mainContainerRef.current,
           start: 'top top',
           end: `+=${(normalized.length + 1) * 100}%`,
-          scrub: 1,
+          scrub: 0.5,
           pin: true,
           anticipatePin: 1,
-          invalidateOnRefresh: true
+          fastScrollEnd: true,
         }
       })
 
@@ -153,7 +155,6 @@ export default function CaseStudiesScroll({
             opacity: 0,
             x: -50,
             scale: 0.95,
-            filter: 'blur(10px)',
             duration: 1,
             pointerEvents: 'none'
           })
@@ -164,7 +165,6 @@ export default function CaseStudiesScroll({
           opacity: 1,
           x: 0,
           scale: 1,
-          filter: 'blur(0px)',
           duration: 1,
           pointerEvents: 'auto'
         }, i === 0 ? '-=0.5' : '<')
@@ -220,7 +220,7 @@ export default function CaseStudiesScroll({
               key={study.id} 
               className="cs-card-stack relative md:absolute inset-0 flex items-center justify-center p-0 md:p-10 w-full"
             >
-              <div className="w-full max-w-2xl bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl">
+              <div className="w-full max-w-2xl bg-[rgba(5,11,31,0.85)] border border-white/10 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl">
                 {/* Image Section */}
                 <div className="relative h-[220px] md:h-[280px] w-full">
                   {study.backgroundUrl ? (
@@ -235,7 +235,7 @@ export default function CaseStudiesScroll({
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#050b1f] via-transparent to-transparent" />
                   
-                  <div className="absolute top-6 left-6 px-4 py-1.5 bg-blue-600/80 backdrop-blur-md text-white text-[10px] font-black tracking-widest rounded-full uppercase">
+                  <div className="absolute top-6 left-6 px-4 py-1.5 bg-blue-600 text-white text-[10px] font-black tracking-widest rounded-full uppercase">
                     Case Study {String(index + 1).padStart(2, '0')}
                   </div>
                 </div>
@@ -276,9 +276,9 @@ export default function CaseStudiesScroll({
         </div>
       </div>
 
-      {/* Atmospheric Effects */}
-      <div className="absolute top-0 right-0 w-[60vw] h-[60vw] bg-blue-600/[0.03] rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] bg-indigo-600/[0.03] rounded-full blur-[120px] pointer-events-none" />
+      {/* Atmospheric Effects — lightweight radial gradients instead of blur */}
+      <div className="absolute top-0 right-0 w-[60vw] h-[60vw] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.04) 0%, transparent 70%)' }} />
+      <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(79,70,229,0.04) 0%, transparent 70%)' }} />
     </section>
   )
 }
