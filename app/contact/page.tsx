@@ -7,7 +7,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ParticlesBackground from '@/components/ui/ParticlesBackground'
 import { createClient } from '@/lib/supabase/client'
-import { footerData as staticFooterData, servicesData as staticServicesData } from '@/lib/data/index'
+import { footerData as staticFooterData, servicesData as staticServicesData, contactInfoData } from '@/lib/data/index'
 
 export default function ContactPage() {
   const [layoutData, setLayoutData] = useState<any>({
@@ -66,29 +66,30 @@ export default function ContactPage() {
     }
     fetchData()
   }, [])
+  const footerInfo = layoutData?.footer
   const contactMethods = [
     {
       icon: Mail,
       title: 'Email Us',
-      value: 'contact@deepneurax.com',
-      href: 'mailto:contact@deepneurax.com',
+      value: footerInfo?.contactEmail || contactInfoData.email || 'contact@deepneurax.com',
+      href: `mailto:${footerInfo?.contactEmail || contactInfoData.email || 'contact@deepneurax.com'}`,
       description: 'Our friendly team is here to help.'
     },
     {
       icon: Phone,
       title: 'Call Us',
-      value: '+1 (555) 123-4567',
-      href: 'tel:+15551234567',
+      value: footerInfo?.contactPhone || contactInfoData.phone || '',
+      href: `tel:${(footerInfo?.contactPhone || contactInfoData.phone || '').replace(/\s/g, '')}`,
       description: 'Mon-Fri from 8am to 5pm.'
     },
     {
       icon: MapPin,
       title: 'Visit Us',
-      value: '123 AI Blvd, San Francisco, CA',
+      value: footerInfo?.address || contactInfoData.address || '',
       href: '#',
-      description: 'Come say hello at our office HQ.'
+      description: 'Come say hello at our office.'
     },
-  ]
+  ].filter(m => m.value)
 
   const [formData, setFormData] = useState({
     name: '',

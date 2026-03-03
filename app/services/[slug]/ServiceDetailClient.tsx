@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect } from 'react'
 import { useLayoutData } from '@/lib/supabase/useLayoutData'
 import { createClient } from '@/lib/supabase/client'
 import { servicesData as staticServices } from '@/lib/data/index'

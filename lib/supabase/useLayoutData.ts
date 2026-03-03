@@ -40,6 +40,7 @@ export function useLayoutData() {
 
   useEffect(() => {
     async function fetchLayout() {
+      try {
       const supabase = createClient()
       if (!supabase) return
 
@@ -76,6 +77,10 @@ export function useLayoutData() {
       }))
 
       setLayout({ footer: footer || getStaticLayout().footer, services })
+      } catch (err) {
+        console.error('Failed to fetch layout data:', err)
+        // Keep static fallback already set in initial state
+      }
     }
     fetchLayout()
   }, [])

@@ -111,7 +111,7 @@ export default function ProductDetailClient({ slug }: { slug: string }) {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="btn-primary py-4 px-10 text-lg">Request Demo</button>
+                <Link href="/contact" className="btn-primary py-4 px-10 text-lg">Request Demo</Link>
               </div>
             </div>
           </div>

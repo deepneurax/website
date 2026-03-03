@@ -78,6 +78,7 @@ export default function ProductCarousel({ products }: { products: Product[] }) {
 
   // Auto-rotate every 4 seconds
   useEffect(() => {
+    if (products.length === 0) return
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % products.length)
     }, 4000)

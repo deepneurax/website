@@ -202,8 +202,12 @@ export async function getTableCounts() {
   
   await Promise.all(
     tables.map(async (table) => {
-      const { data } = await adminClient.from(table).select('id')
-      counts[table] = data?.length || 0
+      try {
+        const { count, error } = await adminClient.from(table).select('*', { count: 'exact', head: true })
+        counts[table] = error ? 0 : (count ?? 0)
+      } catch {
+        counts[table] = 0
+      }
     })
   )
   

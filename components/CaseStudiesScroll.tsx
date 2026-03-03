@@ -179,7 +179,6 @@ export default function CaseStudiesScroll({
 
     return () => {
       ctx.revert()
-      ScrollTrigger.getAll().forEach(st => st.kill())
     }
   }, [normalized])
 

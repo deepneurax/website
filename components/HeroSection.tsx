@@ -47,12 +47,10 @@ interface HeroData {
 
 export default function HeroSection({ data }: { data: HeroData }) {
   const [activeVideoIndex, setActiveVideoIndex] = useState(0)
-  const [isTransitioning, setIsTransitioning] = useState(false)
   const [activeTaglineIndex, setActiveTaglineIndex] = useState(0)
   const [isHoveringTagline, setIsHoveringTagline] = useState(false)
   
   const currentVideoRef = useRef<HTMLVideoElement>(null)
-  const nextVideoRef = useRef<HTMLVideoElement>(null)
   const heroRef = useRef<HTMLElement>(null)
   
   const videos = data.backgroundVideos || []
@@ -101,11 +99,11 @@ export default function HeroSection({ data }: { data: HeroData }) {
 
   // Play video when it becomes active
   useEffect(() => {
-    if (currentVideoRef.current && !isTransitioning) {
+    if (currentVideoRef.current) {
       currentVideoRef.current.load()
       currentVideoRef.current.play().catch(() => {})
     }
-  }, [activeVideoIndex, isTransitioning])
+  }, [activeVideoIndex])
 
   // Auto-rotate videos based on duration
   useEffect(() => {
@@ -249,20 +247,20 @@ export default function HeroSection({ data }: { data: HeroData }) {
           {/* CTA Buttons - Enhanced with unified button system */}
           <div className="hero-buttons flex flex-col sm:flex-row gap-4 pt-2">
             {/* Primary Button */}
-            <Link href="/contact" className="btn-primary">
-              <span>Get Started</span>
+            <Link href={data.primaryButtonLink || '/contact'} className="btn-primary">
+              <span>{data.primaryButtonText || 'Get Started'}</span>
               <ArrowRight className="w-5 h-5 btn-icon" />
             </Link>
 
             {/* Secondary Button */}
-            <button
-              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'auto' })}
+            <Link
+              href={data.secondaryButtonLink || '/services'}
               className="btn-secondary text-white border-white/40 hover:border-transparent"
               style={{ color: 'white' }}
             >
               <Play className="w-5 h-5" />
-              <span>{data.secondaryButtonText || 'Watch Demo'}</span>
-            </button>
+              <span>{data.secondaryButtonText || 'Explore Services'}</span>
+            </Link>
           </div>
 
           {/* Stats or Features Row - Optional */}

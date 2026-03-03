@@ -40,10 +40,9 @@ export default function Footer({ data, services }: FooterProps) {
 
   const menuItems = [
     { label: 'Home', href: '/' },
-    { label: 'Services', href: '/#services' },
-    { label: 'Case Studies', href: '/#case-studies' },
+    { label: 'Services', href: '/services' },
+    { label: 'Products', href: '/products' },
     { label: 'Blog', href: '/blog' },
-    { label: 'About Us', href: '/#about' },
     { label: 'Contact', href: '/contact' },
   ]
 
