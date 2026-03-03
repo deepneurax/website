@@ -29,11 +29,10 @@ export default function Header({ logo, logoLight, siteName, menuItems: propMenuI
 
   const defaultMenuItems = [
     { label: 'Home', href: '/' },
-    { label: 'Services', href: '/#services' },
+    { label: 'Services', href: '/services' },
     { label: 'Products', href: '/products' },
-    { label: 'Case Studies', href: '/#case-studies' },
     { label: 'Blog', href: '/blog' },
-    { label: 'About', href: '/#about' },
+    { label: 'Contact', href: '/contact' },
   ]
 
   const menuItems = (propMenuItems && propMenuItems.length > 0) ? propMenuItems : defaultMenuItems
