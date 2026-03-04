@@ -524,191 +524,258 @@ END $$;
 
 
 -- ============================================
--- 8. SEED DATA — Default content with placeholder images
+-- 8. SEED DATA — Matches lib/data/index.ts exactly
 -- ============================================
--- All image URLs use Unsplash CDN for reliable tech/AI themed placeholders.
--- Replace with your own images via the admin panel or direct DB updates.
+-- This data is identical to the static fallback so the website
+-- looks the same before and after connecting Supabase.
+-- Uses DELETE + INSERT to ensure a clean, correct state.
 
--- Hero (with background image and sample video)
-INSERT INTO hero (title, subtitle, description, background_image_url, background_videos) VALUES (
-  'Transforming Business with AI',
-  'Building the Future of Intelligent Solutions',
-  'We deliver cutting-edge AI solutions that drive innovation, efficiency, and growth for businesses worldwide.',
-  'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80',
-  '[{"videoUrl": "https://cdn.pixabay.com/video/2020/08/09/46904-449623255_large.mp4", "thumbnail": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80", "duration": 15}]'::jsonb
-) ON CONFLICT DO NOTHING;
+-- 8.1 HERO
+DELETE FROM hero;
+INSERT INTO hero (
+  title, subtitle, description,
+  cta_text, cta_link, secondary_cta_text, secondary_cta_link,
+  background_image_url, background_videos, taglines
+) VALUES (
+  'DeepNeurax Technologies',
+  'Transforming Businesses Through AI, IoT and Intelligent Digital Solutions',
+  'DeepNeurax Technologies is a next-generation software innovation company delivering intelligent automation, scalable digital systems, and future-ready enterprise solutions. We combine the power of AI, IoT, cloud, and modern software engineering to build products that accelerate growth, optimize operations, and unlock digital transformation.',
+  'Get a Free Consultation', '/contact',
+  'Explore Services', '/services',
+  NULL,
+  '[]'::jsonb,
+  '[
+    {"tagline": "AI-Powered Solutions", "description": "Your vision, engineered with intelligence"},
+    {"tagline": "Secure and Scalable",  "description": "Empowering your business with secure, smart, and scalable technologies"},
+    {"tagline": "IoT and Digital Innovation", "description": "Bridging AI, IoT, and cloud to drive intelligent digital growth"}
+  ]'::jsonb
+);
 
--- Services (with images)
+-- 8.2 SERVICES
+DELETE FROM services;
 INSERT INTO services (title, slug, description, icon, image_url, link, "order") VALUES
-  ('Machine Learning Solutions', 'machine-learning', 'Custom ML models designed to solve your most complex business challenges. From predictive analytics to recommendation systems, we build intelligent solutions that learn and improve.', '🤖', 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80', '/services/machine-learning', 1),
-  ('Data Analytics & Insights', 'data-analytics', 'Transform raw data into actionable insights. Our analytics solutions help you make data-driven decisions with advanced visualization and reporting tools.', '📊', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80', '/services/data-analytics', 2),
-  ('Cloud AI Infrastructure', 'cloud-infrastructure', 'Scalable cloud solutions for AI workloads. We design and deploy infrastructure that grows with your needs while maintaining optimal performance.', '☁️', 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80', '/services/cloud-infrastructure', 3),
-  ('AI Security & Compliance', 'ai-security', 'Protect your AI systems with enterprise-grade security. We ensure your models and data meet the highest standards of compliance and protection.', '🛡️', 'https://images.unsplash.com/photo-1563986768609-322da13575f2?w=800&q=80', '/services/ai-security', 4),
-  ('AI Consulting', 'ai-consulting', 'Strategic guidance for your AI journey. Our experts help you identify opportunities, plan implementations, and maximize ROI from AI investments.', '⚡', 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80', '/services/ai-consulting', 5),
-  ('Natural Language Processing', 'nlp-solutions', 'Advanced NLP solutions for text analysis, chatbots, sentiment analysis, and language understanding. Make sense of unstructured text data at scale.', '💬', 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80', '/services/nlp-solutions', 6)
-ON CONFLICT (slug) DO NOTHING;
+  ('AI and Machine Learning', 'ai-machine-learning',
+   'Custom AI models, automation pipelines, generative AI integration, and agent-based solutions engineered around your business goals.',
+   '🤖', 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80', '/services/machine-learning', 1),
+  ('IoT Solutions', 'iot-solutions',
+   'Secure device connectivity, real-time data collection, and edge computing architectures for industrial, retail, and smart infrastructure environments.',
+   '📡', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80', '/services/data-analytics', 2),
+  ('Business and API Solutions', 'business-api-solutions',
+   'Enterprise-grade APIs, microservices, and digital modernization of legacy systems to create resilient, future-ready business platforms.',
+   '🧩', 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80', '/services/cloud-infrastructure', 3),
+  ('SaaS Products', 'saas-products',
+   'Smart HR, payroll, inventory, and industry-specific SaaS modules designed to plug into your existing ecosystem with minimal friction.',
+   '📦', 'https://images.unsplash.com/photo-1563986768609-322da13575f2?w=800&q=80', '/services/ai-security', 4),
+  ('Digital Growth Solutions', 'digital-growth-solutions',
+   'Performance-driven SEO, paid media, social media scaling, and analytics to amplify your digital presence and customer acquisition.',
+   '📈', 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80', '/services/ai-consulting', 5),
+  ('Custom Enterprise Platforms', 'custom-enterprise-platforms',
+   'End-to-end digital platforms tailored for startups, SMEs, enterprises, and government organizations across multiple industries.',
+   '🏢', 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80', '/services/nlp-solutions', 6);
 
--- Products (with images)
+-- 8.3 PRODUCTS
+DELETE FROM products;
 INSERT INTO products (name, slug, description, icon, image_url, link, "order") VALUES
-  ('NeuraxPlatform', 'neurax-platform', 'An enterprise-grade AI platform that enables rapid development and deployment of machine learning models with intuitive interfaces and powerful automation.', '📦', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80', '/products/neurax-platform', 1),
-  ('AutoML Suite', 'automl-suite', 'Automated machine learning toolkit that handles feature engineering, model selection, and hyperparameter tuning, making AI accessible to every team.', '⚙️', 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&q=80', '/products/automl-suite', 2),
-  ('DataViz Pro', 'dataviz-pro', 'Advanced data visualization and analytics dashboard that transforms complex datasets into intuitive, interactive visualizations for better decision making.', '📊', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80', '/products/dataviz-pro', 3),
-  ('AI Agent Framework', 'ai-agent-framework', 'Build intelligent conversational agents and autonomous AI systems with our comprehensive framework supporting multiple LLM providers.', '🤖', 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80', '/products/ai-agent-framework', 4)
-ON CONFLICT (slug) DO NOTHING;
+  ('Digital Chemistry', 'digital-chemistry',
+   'Interactive periodic table, molecule formulation, reactor simulation, and 3D visualization for modern chemistry education and research.',
+   '🧪', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80', '/products/neurax-platform', 1),
+  ('AI-Powered Grading System', 'ai-grading-system',
+   'Automated grading and evaluation platform that uses AI to assess assignments, exams, and practical work with transparent analytics.',
+   '🧠', 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&q=80', '/products/automl-suite', 2),
+  ('Smart Inventory Manager', 'smart-inventory-manager',
+   'A smart inventory management system that tracks, automates, and optimizes stock levels, purchasing, and warehousing operations.',
+   '📊', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80', '/products/dataviz-pro', 3),
+  ('AI-Powered Payroll and HRMS', 'ai-payroll-hrms',
+   'AI-driven payroll and HR management platform that automates attendance, payroll processing, and employee insights in real time.',
+   '👥', 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80', '/products/ai-payroll-hrms', 4),
+  ('Custom SaaS Modules', 'custom-saas-modules',
+   'Modular SaaS components that are scalable, secure, and ready to integrate with any industry environment.',
+   '📦', 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80', '/products/custom-saas-modules', 5);
 
--- Metrics
+-- 8.4 METRICS
+DELETE FROM metrics;
 INSERT INTO metrics (label, value, suffix, icon, "order") VALUES
-  ('Projects Delivered', 500, '+', '🚀', 1),
-  ('Happy Clients', 200, '+', '😊', 2),
-  ('AI Models Deployed', 1000, '+', '🤖', 3),
-  ('Data Points Processed', 10, 'B+', '📊', 4)
-ON CONFLICT DO NOTHING;
+  ('Projects Delivered',    500,  '+',  '🚀', 1),
+  ('Happy Clients',         200,  '+',  '😊', 2),
+  ('AI Models Deployed',    1000, '+',  '🤖', 3),
+  ('Data Points Processed', 10,   'B+', '📊', 4);
 
--- About Us (with team image)
-INSERT INTO about_us (who_we_are_heading, who_we_are_description, core_values_heading, image_url) VALUES (
+-- 8.5 ABOUT US
+DELETE FROM about_us;
+INSERT INTO about_us (who_we_are_heading, who_we_are_description, core_values_heading) VALUES (
   'Who We Are',
-  'DeepNeurax is a pioneering AI company dedicated to transforming businesses through innovative artificial intelligence solutions. With a team of world-class engineers and data scientists, we deliver cutting-edge technology that drives real results.',
-  'Our Core Values',
-  'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80'
-) ON CONFLICT DO NOTHING;
+  'DeepNeurax Technologies is a Pakistan-based technology company and cybersecurity-focused software house delivering intelligent digital systems, AI solutions, and end-to-end platforms for startups, SMEs, enterprises, and government sectors. Our mission is to empower organizations through secure, scalable, and intelligent digital technologies that enhance productivity, unlock operational efficiencies, and enable sustainable digital transformation. Our vision is to become Pakistan''s most trusted technology partner, leading the future of Industry 5.0, cybersecurity excellence, digital transformation, and AI-driven innovation.',
+  'Core Values'
+);
 
--- Core Values (with images)
-INSERT INTO core_values (title, description, icon, image_url, "order") VALUES
-  ('Innovation', 'Pushing the boundaries of what AI can achieve', '💡', 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&q=80', 1),
-  ('Excellence', 'Delivering exceptional quality in everything we do', '⭐', 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&q=80', 2),
-  ('Integrity', 'Building trust through transparent and ethical AI', '🤝', 'https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=400&q=80', 3),
-  ('Impact', 'Creating meaningful change for our clients and society', '🎯', 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&q=80', 4)
-ON CONFLICT DO NOTHING;
+-- 8.6 CORE VALUES
+DELETE FROM core_values;
+INSERT INTO core_values (title, description, icon, "order") VALUES
+  ('Integrity and Trust',        'Security and transparency above all in every engagement.',                   '🛡️', 1),
+  ('Innovation',                 'Constantly evolving with modern AI, IoT, and digital technologies.',          '💡', 2),
+  ('Customer-First Approach',    'Your success and outcomes sit at the heart of our solutions.',               '🤝', 3),
+  ('Quality and Excellence',     'Delivering reliable, secure, and highly scalable systems.',                  '🏆', 4),
+  ('Teamwork and Collaboration', 'Building together, succeeding together as one integrated team.',             '👥', 5);
 
--- Sphere Showcase
-INSERT INTO sphere_showcase (section_title, section_description, intro_heading, intro_subheading, content_heading, content_description)
-SELECT
+-- 8.7 SPHERE SHOWCASE
+DELETE FROM sphere_showcase_items;
+DELETE FROM sphere_showcase;
+INSERT INTO sphere_showcase (
+  section_title, section_description,
+  intro_heading, intro_subheading, content_heading, content_description
+) VALUES (
   'Explore Our Capabilities',
   'We deliver exceptional results through innovation, expertise, and dedication',
   'The future is built on AI.',
   'SCROLL TO EXPLORE',
   'Explore Our Vision',
   'Discover a world where technology meets creativity.'
-WHERE NOT EXISTS (SELECT 1 FROM sphere_showcase LIMIT 1);
-
--- Sphere Showcase Items (with images — 12 items for visual density)
+);
 INSERT INTO sphere_showcase_items (title, description, image_url, link, "order") VALUES
-  ('Deep Learning', 'Neural networks that understand complex patterns', 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&q=80', '#deep-learning', 1),
-  ('Computer Vision', 'AI that sees and understands the visual world', 'https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=400&q=80', '#computer-vision', 2),
-  ('NLP', 'Natural language understanding at scale', 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80', '#nlp', 3),
-  ('Predictive Analytics', 'Forecasting the future with data', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80', '#analytics', 4),
-  ('Robotics & Automation', 'Intelligent automation for modern industry', 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&q=80', '#robotics', 5),
-  ('Cloud AI', 'Scalable AI infrastructure in the cloud', 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&q=80', '#cloud-ai', 6),
-  ('Edge Computing', 'AI processing at the edge for real-time decisions', 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=80', '#edge', 7),
-  ('Data Engineering', 'Building robust data pipelines at scale', 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&q=80', '#data-eng', 8),
-  ('Generative AI', 'Creating content and solutions with generative models', 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400&q=80', '#gen-ai', 9),
-  ('IoT Intelligence', 'Smart connected devices and sensor networks', 'https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=400&q=80', '#iot', 10),
-  ('Cybersecurity AI', 'AI-powered threat detection and prevention', 'https://images.unsplash.com/photo-1563986768609-322da13575f2?w=400&q=80', '#security', 11),
-  ('Digital Twins', 'Virtual replicas for simulation and optimization', 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80', '#digital-twins', 12)
-ON CONFLICT DO NOTHING;
+  ('Deep Learning',        'Neural networks that understand complex patterns',  'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&q=80', '#deep-learning',   1),
+  ('Computer Vision',      'AI that sees and understands the visual world',     'https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=400&q=80', '#computer-vision',  2),
+  ('NLP',                  'Natural language understanding at scale',           'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80', '#nlp',              3),
+  ('Predictive Analytics', 'Forecasting the future with data',                  'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80',  '#analytics',         4);
 
--- Features Section
+-- 8.8 FEATURES SECTION
+DELETE FROM features_section_images;
+DELETE FROM features_section;
 INSERT INTO features_section (intro_heading, intro_subheading, section_title, section_description) VALUES (
-  'Our Technology',
-  'Built for the Future',
+  'Our Technology', 'Built for the Future',
   'Cutting-Edge AI Features',
   'Experience the power of next-generation artificial intelligence'
-) ON CONFLICT DO NOTHING;
-
--- Features Section Images (placeholder tech images)
+);
 INSERT INTO features_section_images (image_url, alt_text, "order") VALUES
   ('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80', 'AI neural network visualization', 1),
-  ('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80', 'Data center infrastructure', 2),
-  ('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80', 'Global technology network', 3),
-  ('https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=600&q=80', 'Computer vision technology', 4)
-ON CONFLICT DO NOTHING;
+  ('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80',    'Data center infrastructure',      2),
+  ('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80',  'Global technology network',       3),
+  ('https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=600&q=80',  'Computer vision technology',      4);
 
--- Case Studies Section
+-- 8.9 CASE STUDIES
+DELETE FROM case_studies;
+DELETE FROM case_studies_section;
 INSERT INTO case_studies_section (title, description) VALUES (
   'Success Stories',
   'See how we have helped businesses transform with AI'
-) ON CONFLICT DO NOTHING;
+);
+INSERT INTO case_studies (title, slug, description, bullet_points, metrics, background_image_url, is_active, "order") VALUES
+  ('Retail Automation', 'retail-automation',
+   'Deployed an AI-driven stock intelligence layer that reduced manual inventory errors by 83% and improved replenishment accuracy across multi-store retail networks.',
+   '["83% reduction in manual inventory errors", "Automated stock forecasting and replenishment", "Real-time visibility across stores and warehouses", "Integrated with existing POS and ERP systems"]'::jsonb,
+   '[{"label": "Error Reduction", "value": "83%"}, {"label": "Stock Visibility", "value": "Real-time"}, {"label": "Stores Onboarded", "value": "50+"}]'::jsonb,
+   'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80', true, 1),
+  ('Industrial IoT Monitoring', 'industrial-iot-monitoring',
+   'Implemented an industrial IoT platform with real-time machine monitoring that reduced unplanned downtime and improved overall equipment effectiveness.',
+   '["Real-time monitoring of critical machines and production lines", "Predictive maintenance alerts for high-risk assets", "Unified dashboards for plant, operations, and management teams", "Secure connectivity from edge devices to cloud analytics"]'::jsonb,
+   '[{"label": "Downtime Reduction", "value": "40%"}, {"label": "Monitored Assets", "value": "200+"}, {"label": "Alert Accuracy", "value": "92%"}]'::jsonb,
+   'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80', true, 2),
+  ('API Modernization', 'api-modernization',
+   'Modernized a legacy monolithic system into an API-first microservices architecture, accelerating critical business processes and integrations.',
+   '["Re-architected monolith into domain-driven microservices", "Introduced secure, versioned REST and GraphQL APIs", "Legacy workflows accelerated by 2.3x end-to-end", "Comprehensive monitoring, logging, and CI/CD pipelines"]'::jsonb,
+   '[{"label": "Process Acceleration", "value": "2.3x"}, {"label": "Legacy Modules Migrated", "value": "30+"}, {"label": "New Integrations", "value": "15+"}]'::jsonb,
+   'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80', true, 3);
 
--- Case Studies (with background images)
-INSERT INTO case_studies (title, slug, description, bullet_points, metrics, background_image_url, "order") VALUES
-  ('Healthcare AI Transformation', 'healthcare-ai-transformation',
-   'Implemented an AI-powered diagnostic system that improved patient outcomes by 40% and reduced diagnosis time by 60%.',
-   '["Reduced diagnosis time by 60%", "Improved accuracy to 95%", "Processed 1M+ patient records", "Integrated with existing systems"]'::jsonb,
-   '[{"label": "Accuracy Improvement", "value": "95%"}, {"label": "Time Saved", "value": "60%"}, {"label": "Records Processed", "value": "1M+"}]'::jsonb,
-   'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80', 1),
-  ('Financial Fraud Detection', 'financial-fraud-detection',
-   'Developed a real-time fraud detection system for a major bank that prevented $50M in fraudulent transactions annually.',
-   '["Real-time transaction analysis", "$50M+ fraud prevented annually", "99.9% uptime achieved", "Reduced false positives by 70%"]'::jsonb,
-   '[{"label": "Fraud Prevented", "value": "$50M+"}, {"label": "Uptime", "value": "99.9%"}, {"label": "False Positive Reduction", "value": "70%"}]'::jsonb,
-   'https://images.unsplash.com/photo-1563986768609-322da13575f2?w=800&q=80', 2),
-  ('E-commerce Personalization', 'ecommerce-personalization',
-   'Built a recommendation engine that increased customer engagement by 150% and boosted sales by 35%.',
-   '["Personalized recommendations for 10M+ users", "35% increase in sales", "150% boost in engagement", "Seamless API integration"]'::jsonb,
-   '[{"label": "Sales Increase", "value": "35%"}, {"label": "Engagement Boost", "value": "150%"}, {"label": "Users Served", "value": "10M+"}]'::jsonb,
-   'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80', 3)
-ON CONFLICT (slug) DO NOTHING;
-
--- Testimonials (with avatar images)
+-- 8.10 TESTIMONIALS
+DELETE FROM testimonials;
 INSERT INTO testimonials (author, handle, role, text, avatar_url, "order") VALUES
-  ('Sarah Johnson', '@sarahj_cto', 'CTO, TechCorp', 'DeepNeurax transformed our data infrastructure. Their AI solutions have been game-changing for our business operations.', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80', 1),
-  ('Michael Chen', '@mchen_ai', 'VP Engineering, DataFlow', 'The team at DeepNeurax delivered exceptional results. Our ML pipeline is now 10x faster and more reliable.', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80', 2),
-  ('Emily Rodriguez', '@emilyrod', 'Director of AI, InnovateCo', 'Working with DeepNeurax was a pleasure. They understood our needs and delivered beyond expectations.', 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=80', 3),
-  ('David Park', '@dpark_tech', 'CEO, StartupX', 'The AI consulting services helped us identify opportunities we never knew existed. Highly recommended!', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&q=80', 4),
-  ('Lisa Wang', '@lisawang_ml', 'Head of Data Science, FinServ', 'DeepNeurax''s fraud detection system saved us millions. Their expertise in financial AI is unmatched.', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&q=80', 5)
-ON CONFLICT DO NOTHING;
+  ('CEO, Electronics and Engineering Spark', '', 'Chief Executive Officer',
+   'DeepNeurax transformed our entire business ecosystem with an integrated AI and IoT platform. Remarkable experience.',
+   'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80', 1),
+  ('CEO, TronicsInn Solutions', '', 'Chief Executive Officer',
+   'Professional team, clear communication, and world-class software delivery.',
+   'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80', 2);
 
--- Blog Posts (with cover images and SEO metadata)
-INSERT INTO blog_posts (title, slug, excerpt, content, author, tags, cover_image_url, og_image_url, meta_title, meta_description, published_at) VALUES
+-- 8.11 BLOG POSTS
+DELETE FROM blog_posts;
+INSERT INTO blog_posts (
+  title, slug, excerpt, content, author, tags, cover_image_url,
+  og_image_url, meta_title, meta_description, published_at, is_published
+) VALUES
   ('The Future of AI in Enterprise', 'future-of-ai-enterprise',
    'Exploring how artificial intelligence is reshaping enterprise operations and what to expect in the coming years.',
-   '## The Future of AI in Enterprise\n\nArtificial intelligence is no longer a futuristic concept—it''s here, and it''s transforming how businesses operate.\n\n### Key Trends\n\n1. **Automated Decision Making** - AI systems are increasingly being used to make complex business decisions in real-time.\n\n2. **Predictive Analytics** - Companies are leveraging AI to forecast market trends, customer behavior, and operational needs.\n\n3. **Natural Language Processing** - Chatbots and virtual assistants are becoming more sophisticated.',
+   E'## The Future of AI in Enterprise\n\nArtificial intelligence is no longer a futuristic concept\u2014it''s here, and it''s transforming how businesses operate. From automating routine tasks to providing deep insights from complex data, AI is becoming an essential tool for enterprises worldwide.\n\n### Key Trends\n\n1. **Automated Decision Making** - AI systems are increasingly being used to make complex business decisions in real-time.\n\n2. **Predictive Analytics** - Companies are leveraging AI to forecast market trends, customer behavior, and operational needs.\n\n3. **Natural Language Processing** - Chatbots and virtual assistants are becoming more sophisticated, handling complex customer interactions.\n\n### What This Means for Your Business\n\nThe enterprises that embrace AI today will be the market leaders of tomorrow. The key is to start small, prove value, and scale strategically.',
    'Dr. James Wilson', '["AI", "Enterprise", "Technology"]'::jsonb,
    'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80',
    'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&q=80',
    'The Future of AI in Enterprise | DeepNeurax',
-   'Exploring how artificial intelligence is reshaping enterprise operations and what to expect in the coming years.',
-   '2025-12-15T10:00:00.000Z'),
+   'Exploring how artificial intelligence is reshaping enterprise operations.',
+   '2025-12-15T10:00:00.000Z', true),
   ('Machine Learning Best Practices', 'ml-best-practices',
    'A comprehensive guide to implementing machine learning solutions that deliver real business value.',
-   '## Machine Learning Best Practices\n\nImplementing machine learning successfully requires more than just algorithms—it requires a strategic approach.\n\n### Essential Practices\n\n1. **Start with Clean Data** - The quality of your ML model is only as good as the data you train it on.\n\n2. **Choose the Right Model** - Not every problem needs deep learning. Sometimes simpler models work better.\n\n3. **Monitor and Iterate** - ML models need continuous monitoring and retraining to maintain accuracy.',
+   E'## Machine Learning Best Practices\n\nImplementing machine learning successfully requires more than just algorithms\u2014it requires a strategic approach that considers data quality, model selection, and deployment strategies.\n\n### Essential Practices\n\n1. **Start with Clean Data** - The quality of your ML model is only as good as the data you train it on.\n\n2. **Choose the Right Model** - Not every problem needs deep learning. Sometimes simpler models work better.\n\n3. **Monitor and Iterate** - ML models need continuous monitoring and retraining to maintain accuracy.\n\n### Common Pitfalls to Avoid\n\n- Overfitting to training data\n- Ignoring bias in datasets\n- Not having a clear success metric',
    'Sarah Chen', '["Machine Learning", "Best Practices", "Data Science"]'::jsonb,
    'https://images.unsplash.com/photo-1555255707-c07966088b7b?w=800&q=80',
    'https://images.unsplash.com/photo-1555255707-c07966088b7b?w=1200&q=80',
    'Machine Learning Best Practices | DeepNeurax',
    'A comprehensive guide to implementing machine learning solutions that deliver real business value.',
-   '2025-11-28T10:00:00.000Z'),
+   '2025-11-28T10:00:00.000Z', true),
   ('Building Ethical AI Systems', 'ethical-ai-systems',
    'Why ethical considerations should be at the forefront of AI development and how to implement them.',
-   '## Building Ethical AI Systems\n\nAs AI becomes more prevalent, ensuring these systems are fair, transparent, and accountable is crucial.\n\n### Principles of Ethical AI\n\n1. **Fairness** - AI systems should not discriminate against any group.\n\n2. **Transparency** - Users should understand how AI decisions are made.\n\n3. **Accountability** - There should be clear ownership of AI outcomes.',
+   E'## Building Ethical AI Systems\n\nAs AI becomes more prevalent, ensuring these systems are fair, transparent, and accountable is crucial for building trust and avoiding harm.\n\n### Principles of Ethical AI\n\n1. **Fairness** - AI systems should not discriminate against any group.\n\n2. **Transparency** - Users should understand how AI decisions are made.\n\n3. **Accountability** - There should be clear ownership of AI outcomes.\n\n### Implementation Strategies\n\n- Regular bias audits\n- Explainable AI techniques\n- Diverse development teams',
    'Maria Rodriguez', '["Ethics", "AI", "Responsible AI"]'::jsonb,
    'https://images.unsplash.com/photo-1531746790095-e5577e0e3ede?w=800&q=80',
    'https://images.unsplash.com/photo-1531746790095-e5577e0e3ede?w=1200&q=80',
    'Building Ethical AI Systems | DeepNeurax',
-   'Why ethical considerations should be at the forefront of AI development and how to implement them.',
-   '2025-11-10T10:00:00.000Z')
-ON CONFLICT (slug) DO NOTHING;
+   'Why ethical considerations should be at the forefront of AI development.',
+   '2025-11-10T10:00:00.000Z', true),
+  ('Cloud Infrastructure for AI Workloads', 'cloud-ai-infrastructure',
+   'How to design and deploy cloud infrastructure optimized for AI and machine learning workloads.',
+   E'## Cloud Infrastructure for AI Workloads\n\nRunning AI workloads efficiently requires specialized infrastructure that can handle the computational demands of training and inference.\n\n### Key Considerations\n\n1. **GPU Selection** - Choose the right GPU instances for your workload type.\n\n2. **Data Pipeline** - Build efficient data pipelines that can feed your models at scale.\n\n3. **Cost Optimization** - Use spot instances and auto-scaling to manage costs.\n\n### Best Practices\n\n- Use containerization for reproducibility\n- Implement proper monitoring and logging\n- Design for fault tolerance',
+   'Alex Thompson', '["Cloud", "Infrastructure", "MLOps"]'::jsonb,
+   'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80',
+   'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1200&q=80',
+   'Cloud Infrastructure for AI Workloads | DeepNeurax',
+   'How to design and deploy cloud infrastructure optimized for AI and machine learning workloads.',
+   '2025-10-22T10:00:00.000Z', true);
 
--- CTA (with background image)
-INSERT INTO cta (title, description, button_text, button_link, background_image_url) VALUES (
-  'Ready to Transform Your Business?',
-  'Let''s discuss how AI can help you achieve your goals. Schedule a free consultation with our experts.',
-  'Get Started Today',
-  '/contact',
-  'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80'
-) ON CONFLICT DO NOTHING;
+-- 8.12 CTA
+DELETE FROM cta;
+INSERT INTO cta (
+  title, description, button_text, button_link,
+  secondary_button_text, secondary_button_link, background_image_url
+) VALUES (
+  'Ready to Build Something Next-Level?',
+  'Start your project, get a tailored quote, or talk directly to our experts about AI, IoT, and digital transformation.',
+  'Start Your Project', '/contact',
+  'Explore Services', '/services',
+  NULL
+);
 
--- Footer
-INSERT INTO footer (site_name, tagline, copyright_text) VALUES (
-  'DeepNeurax',
-  'AI-Powered Solutions for the Future',
-  '© 2025 DeepNeurax. All rights reserved.'
-) ON CONFLICT DO NOTHING;
+-- 8.13 FOOTER
+DELETE FROM footer;
+INSERT INTO footer (
+  site_name, tagline, company_description,
+  site_logo_url, site_logo_light_url, copyright_text,
+  contact_email, contact_phone, address,
+  social_links, menu_items, cta
+) VALUES (
+  'DeepNeurax Technologies',
+  'Transforming Businesses Through AI, IoT and Intelligent Digital Solutions',
+  'DeepNeurax Technologies is a Pakistan-based software house and cybersecurity-focused technology company delivering intelligent digital systems, AI solutions, and high-performance enterprise products.',
+  NULL, NULL,
+  '© 2026 DeepNeurax Technologies. All Rights Reserved.',
+  '', '', '(Your address here)',
+  '[
+    {"platform": "twitter",  "url": "https://twitter.com/deepneurax"},
+    {"platform": "linkedin", "url": "https://linkedin.com/company/deepneurax"},
+    {"platform": "github",   "url": "https://github.com/deepneurax"}
+  ]'::jsonb,
+  '[
+    {"label": "Home",     "href": "/",         "isExternal": false},
+    {"label": "Services", "href": "/services",  "isExternal": false},
+    {"label": "Products", "href": "/products",  "isExternal": false},
+    {"label": "Blog",     "href": "/blog",      "isExternal": false},
+    {"label": "Contact",  "href": "/contact",   "isExternal": false}
+  ]'::jsonb,
+  '{"label": "Get Started", "href": "/contact", "isExternal": false}'::jsonb
+);
 
--- Site Settings
+-- 8.14 SITE SETTINGS
+DELETE FROM site_settings;
 INSERT INTO site_settings (site_name, site_description) VALUES (
-  'DeepNeurax',
-  'AI-Powered Solutions for the Future'
-) ON CONFLICT DO NOTHING;
+  'DeepNeurax Technologies',
+  'Transforming Businesses Through AI, IoT and Intelligent Digital Solutions'
+);
 
 
 -- ================================================================
